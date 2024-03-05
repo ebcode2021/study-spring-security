@@ -1,5 +1,6 @@
 package com.example.chapter05.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -31,6 +32,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         UserDetails u = userDetailsService.loadUserByUsername(username);
 
         if (passwordEncoder.matches(password, u.getPassword())) {
+            // 암호가 일치하면 필요한 세부 정보가 포함된 Authentication 객체를 반환. 아니면 AuthenticationException
             return new UsernamePasswordAuthenticationToken(
                     username, password, u.getAuthorities()
             );
@@ -41,6 +43,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public boolean supports(Class<?> authentication) {
-        return false;
+        return authentication.equals(UsernamePasswordAuthenticationToken.class);
     }
 }
