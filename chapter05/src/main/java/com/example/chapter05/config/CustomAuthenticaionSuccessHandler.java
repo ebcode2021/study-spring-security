@@ -29,7 +29,7 @@ public class CustomAuthenticaionSuccessHandler  implements AuthenticationSuccess
                 .filter(a -> "read".equals(a.getAuthority()))
                 .findFirst();
         if (auth.isPresent()) {
-            response.sendRedirect("/main");
+            response.sendRedirect("/home");
         } else {
             response.sendRedirect("/error");
         }
