@@ -30,7 +30,11 @@ public class FilterConfig {
                     f.successHandler(authenticationSuccessHandler);
                     f.failureHandler(authenticationFailureHandler);
                 })
-                .httpBasic(Customizer.withDefaults());
+                .httpBasic(c -> {
+                    c.realmName("CUSTOM");
+                    c.authenticationEntryPoint(new CustomEntryPoint());
+                });
+//                .httpBasic(Customizer.withDefaults());
         http.authenticationProvider(authenticationProvider);
         return http.build();
     }
