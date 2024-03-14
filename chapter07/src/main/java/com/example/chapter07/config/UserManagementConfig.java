@@ -13,24 +13,24 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 @Configuration
 public class UserManagementConfig {
 
-    @Bean // 이 메서드를 반환할 UserDetailsService가 스프링 컨텍스트에 수정
+    @Bean
     public UserDetailsService userDetailsService() {
-        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+        InMemoryUserDetailsManager userDetailsService = new InMemoryUserDetailsManager();
 
-        UserDetails user = User.withUsername("eunbi")
+        UserDetails readUser = User.withUsername("eunbi")
                 .password("1234")
-                .authorities("read")
+                .roles("ADMIN")
                 .build();
 
-        UserDetails user2 = User.withUsername("eunson")
+        UserDetails writeUser = User.withUsername("eunson")
                 .password("1234")
-                .authorities("write")
+                .roles("GUEST")
                 .build();
 
-        manager.createUser(user);
-        manager.createUser(user2);
+        userDetailsService.createUser(readUser);
+        userDetailsService.createUser(writeUser);
 
-        return manager;
+        return userDetailsService;
     }
 
     @Bean
