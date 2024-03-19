@@ -16,8 +16,14 @@ public class FilterConfig {
         http.addFilterBefore( // 필터 체인에서 인증 필터 앞에 맞춤형 필터의 인스턴스 추가
                 new RequestValidationFilter(),
                 BasicAuthenticationFilter.class
-        ).authorizeHttpRequests((authz) ->
-                authz.anyRequest().permitAll());
+            )
+            .addFilterAfter(
+                new AuthenticationLogginFilter(),
+                BasicAuthenticationFilter.class
+            )
+            .authorizeHttpRequests(
+                (authz) -> authz.anyRequest().permitAll()
+            );
         return http.build();
     }
 }
