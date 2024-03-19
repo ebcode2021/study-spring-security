@@ -2,6 +2,7 @@ package com.example.chapter09.config;
 
 import com.example.chapter09.filter.AuthenticationLogginFilter;
 import com.example.chapter09.filter.RequestValidationFilter;
+import com.example.chapter09.filter.StaticKeyAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +13,9 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 @Configuration
 @RequiredArgsConstructor
 public class FilterConfig {
+
+    private final StaticKeyAuthenticationFilter keyFilter;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.addFilterBefore( // 필터 체인에서 인증 필터 앞에 맞춤형 필터의 인스턴스 추가
@@ -20,6 +24,10 @@ public class FilterConfig {
             )
             .addFilterAfter(
                 new AuthenticationLogginFilter(),
+                BasicAuthenticationFilter.class
+            )
+            .addFilterAt(
+                keyFilter,
                 BasicAuthenticationFilter.class
             )
             .authorizeHttpRequests(
