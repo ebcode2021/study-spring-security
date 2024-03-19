@@ -1,4 +1,4 @@
-package com.example.chapter09.config;
+package com.example.chapter09.filter;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
