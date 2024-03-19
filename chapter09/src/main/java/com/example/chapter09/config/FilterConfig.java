@@ -1,5 +1,6 @@
 package com.example.chapter09.config;
 
+import com.example.chapter09.filter.AuthenticationLogginFilter;
 import com.example.chapter09.filter.RequestValidationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
