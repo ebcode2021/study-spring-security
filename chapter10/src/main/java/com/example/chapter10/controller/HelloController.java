@@ -12,8 +12,13 @@ public class HelloController {
         return "hello~!";
     }
 
-    @PostMapping("/hello")
+    @PostMapping("/hello") // CSRF 보호 적용할 경로
     public String postHello() {
         return "This is Post Hello~";
+    }
+
+    @PostMapping("/ciao") // CSRF 보호 적용X 경로
+    public String postCiao() {
+        return "This is Post Ciao~";
     }
 }
